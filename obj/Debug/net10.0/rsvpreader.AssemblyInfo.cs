@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rsvpreader")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42bda8a9dcc4ddc7f4bb726f05888e4461733ce3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b76fbbfa7572114073c6b27171288cb67845a8f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("rsvpreader")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rsvpreader")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

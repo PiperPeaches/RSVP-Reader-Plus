@@ -84,6 +84,7 @@
 /home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/rsvpreader.genruntimeconfig.cache
 /home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/ref/rsvpreader.dll
 /home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/compressed/qot93wqrot-{0}-tympmk3aiu-tympmk3aiu.gz
-/home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/compressed/h1vgwu8x6q-{0}-9998dsujsa-9998dsujsa.gz
-/home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/compressed/0hqqe4gbf7-{0}-9998dsujsa-9998dsujsa.gz
 /home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/rsvpreader.sourcelink.json
+/home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/scopedcss/Components/Layout/NavBar.razor.rz.scp.css
+/home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/compressed/h1vgwu8x6q-{0}-tki8e3z603-tki8e3z603.gz
+/home/piper/Documents/Code/rsvpreader/obj/Debug/net10.0/compressed/0hqqe4gbf7-{0}-tki8e3z603-tki8e3z603.gz
