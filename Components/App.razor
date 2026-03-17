@@ -19,4 +19,18 @@
     <script src="_framework/blazor.web.js"></script>
 </body>
 
+<script>
+    window.speakWord = (word, wpm) => {
+        // Stop any current speech so it doesn't overlap or lag
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(word);
+        
+        // Map WPM to Speech Rate (approx 200 WPM is 1.0 rate)
+        utterance.rate = wpm / 200; 
+        
+        window.speechSynthesis.speak(utterance);
+    };
+</script>
+
 </html>
