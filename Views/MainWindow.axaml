@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RSVP.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RSVP.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="RSVP">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <StackPanel>
+        <TextBlock>RSVP Reader Plus</TextBlock>
+        <Grid ColumnDefinitions="*, Auto">
+            <TextBox Grid.Column="0" Text="{Binding Url}" Watermark="Paste in a silly URL :3 (like a good boy >:3" />
+            <Button Grid.Column="1" Content="Load" Command="{Binding LoadArticleCommand}"/>
+        </Grid>
+        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="5" />
+        <TextBlock Text="{Binding CurrentWord}" FontSize="54" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Content="Play / Pause" Command="{Binding TogglePlayCommand}" HorizontalAlignment="Center" Padding="20,10"/>
+    </StackPanel>
+</Window>
