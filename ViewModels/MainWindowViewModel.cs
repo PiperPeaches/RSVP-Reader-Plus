@@ -15,7 +15,6 @@ public partial class MainWindowViewModel : ViewModelBase
 {
     public event Action<int>? RequestHighlightWord;
     public event Action<string[]>? RequestPopulateArticle;
-    public event Action<int>? RequestScrollToWord;
     private DispatcherTimer? _timer;
     private int _currentIndex = 0;
 
@@ -139,6 +138,22 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _timer.Interval = TimeSpan.FromMilliseconds(WpmToMilliseconds(value));
         }
+    }
+
+    [RelayCommand]
+    private void FullReset()
+    {
+        ArticleTitle = "RSVP Reader Plus";
+        CurrentWord = "Paste in a link to begin!";
+        ArticleContent = "No Article Available";
+        _currentIndex = 0;
+        
+        Words = Array.Empty<string>();
+        Url = ""; 
+        ErrorMessage = "";
+
+        RequestPopulateArticle?.Invoke(Words);
+        RequestHighlightWord?.Invoke(0);
     }
 
     [RelayCommand]

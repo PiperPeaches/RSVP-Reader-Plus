@@ -35,6 +35,7 @@
                         <Button Content="Reset" Command="{Binding ResetRsvp}" Padding="15,10" CornerRadius="15" Background="#e64848"/>
                         <Slider Value="{Binding Wpm}" Minimum="100" Maximum="1000" Width="200"/>
                         <TextBlock Text="{Binding Wpm}" VerticalAlignment="Center"/>
+                        <Button Content="App Reset" Padding="15,10" CornerRadius="15" Background="#e64848" Command="{Binding FullResetCommand}"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

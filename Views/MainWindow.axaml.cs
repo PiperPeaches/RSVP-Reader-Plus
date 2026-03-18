@@ -4,6 +4,9 @@ using Avalonia.Media;
 using Avalonia.Controls.Documents;
 using RSVP.ViewModels;
 using System.Collections.Generic;
+using Avalonia.Input;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RSVP.Views;
 
@@ -11,6 +14,39 @@ public partial class MainWindow : Window
 {
     public bool _isInternalUpdate = false;
     private int _lastIndex = -1;
+    private CancellationTokenSource? _resetCts;
+
+    public async void Reset_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        _resetCts = new CancellationTokenSource();
+        try
+        {
+            var token = _resetCts.Token;
+            await Task.Delay(1000, _resetCts.Token);
+            if (DataContext is MainWindowViewModel vm)
+            {
+                vm.ResetRsvpCommand.Execute(null);
+                if (sender is Button b) b.Content = "Reset Complete!";
+                await Task.Delay(1000);
+                if (sender is Button b2) b2.Content = "Hold to Reset";
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            
+        }
+        finally
+        {
+            _resetCts.Dispose();
+            _resetCts = null;
+        }
+    }
+
+    private void Reset_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        _resetCts?.Cancel();
+    }
+    
     public MainWindow()
     {
         InitializeComponent();
