@@ -7,20 +7,45 @@
         x:Class="RSVP.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="RSVP">
+        Title="{Binding ArticleTitle}"
+        MinWidth="1000"
+        MinHeight="700">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <StackPanel>
-        <TextBlock>RSVP Reader Plus</TextBlock>
-        <Grid ColumnDefinitions="*, Auto">
-            <TextBox Grid.Column="0" Text="{Binding Url}" Watermark="Paste in a silly URL :3 (like a good boy >:3" />
-            <Button Grid.Column="1" Content="Load" Command="{Binding LoadArticleCommand}"/>
+    <Grid VerticalAlignment="Center">
+        <Grid RowDefinitions="Auto, Auto, *" Margin="20">
+            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,20" HorizontalAlignment="Center">
+                <TextBox Grid.Column="0" Width="500" Text="{Binding Url}" Watermark="URL here..." CornerRadius="15" Padding="15,10"/>
+                <Button Grid.Column="1" Content="Load" Command="{Binding LoadArticleCommand}" Margin="20,0,0,0" Padding="15,10" CornerRadius="15" Background="#0cb36d"/>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Spacing="10">
+                <Border Height="300" CornerRadius="12">
+                    <TextBlock Text="{Binding CurrentWord}" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20" Margin="0,10">
+                    <Button Content="View Full Article" Command="{Binding OpenFullArticleCommand}" Padding="15,10" CornerRadius="15"/>
+                    <Button Content="Play / Pause" Command="{Binding TogglePlayCommand}" Padding="15,10" CornerRadius="15"/>
+                    <Button Content="Reset" Command="{Binding ResetRsvp}" Padding="15,10" CornerRadius="15" Background="#e64848"/>
+                    <Slider Value="{Binding Wpm}" Minimum="100" Maximum="1000" Width="200"/>
+                    <TextBlock Text="{Binding Wpm}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Grid Grid.Row="3" IsVisible="{Binding IsShowingFullArticle}" RowDefinitions="Auto, *">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
+                    <TextBlock Text="{Binding ArticleContent}" 
+                            FontSize="18" 
+                            TextWrapping="Wrap" 
+                            LineHeight="28"
+                            Padding="40,0"
+                            Foreground="#DDDDDD"/>
+                </ScrollViewer>
+            </Grid>
         </Grid>
-        <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="5" />
-        <TextBlock Text="{Binding CurrentWord}" FontSize="54" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Content="Play / Pause" Command="{Binding TogglePlayCommand}" HorizontalAlignment="Center" Padding="20,10"/>
-    </StackPanel>
+    </Grid>
 </Window>
