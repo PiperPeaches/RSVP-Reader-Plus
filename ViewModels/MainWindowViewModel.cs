@@ -9,12 +9,19 @@ using rsvpreader.Services;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using Avalonia.Metadata;
+using AngleSharp.Io;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    // private readonly System.Timers.Timer _timer = new();
+    public event Action<int>? RequestHighlightWord;
+    public event Action<string[]>? RequestPopulateArticle;
+    public event Action<int>? RequestScrollToWord;
     private DispatcherTimer? _timer;
     private int _currentIndex = 0;
+
+    public int CurrentIndex => _currentIndex;
+    [ObservableProperty]
+    public string _wordsOf = "Words " + 0 + "/" + 0;
 
     [ObservableProperty]
     private string _articleTitle = "RSVP Reader Plus";
@@ -30,11 +37,34 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isShowingFullArticle = false;
     [ObservableProperty]
-    private string _articleContent = "";
+    private string _articleContent = "No Article Avalible";
     [ObservableProperty]
     private string _currentWord = "Paste in a link to begin!";
     public MainWindowViewModel(ArticleService articleService) : base(articleService)
     {
+    }
+
+    [RelayCommand]
+    public void JumpToWord(int index)
+    {
+        if (Words != null && index >= 0 && index < Words.Length)
+        {
+            _currentIndex = index;
+            CurrentWord = Words[_currentIndex];
+        }
+    }
+
+    [RelayCommand]
+    public void ResetRsvp()
+    {
+        _currentIndex = 0;
+        if (Words != null && Words.Length > 0)
+        {
+            CurrentWord = Words[0];
+            RequestHighlightWord?.Invoke(0);
+            UpdateProgessString();
+
+        }
     }
 
     [RelayCommand]
@@ -55,13 +85,10 @@ public partial class MainWindowViewModel : ViewModelBase
             ArticleContent = String.Join(" ", Words);
 
             ToggleFullArticle();
+            RequestPopulateArticle?.Invoke(Words);
+            RequestHighlightWord?.Invoke(_currentIndex);
+            UpdateProgessString();
         }
-    }
-
-    [RelayCommand]
-    public async Task ResetRsvp()
-    {
-        _currentIndex = 0;
     }
 
     [RelayCommand]
@@ -69,11 +96,12 @@ public partial class MainWindowViewModel : ViewModelBase
     {        
         try
         {
-            var result = await _articleService.GetArticleAsync(Url);
 
             ArticleTitle = "Loading...";
             CurrentWord = "Indexing...";
             ArticleContent = "No Article Loaded";
+            
+            var result = await _articleService.GetArticleAsync(Url);
 
             ErrorMessage = "";
             
@@ -82,19 +110,27 @@ public partial class MainWindowViewModel : ViewModelBase
                 ArticleTitle = "RSVP Reading | " + result.Title ?? "Unknown Title";
                 ArticleContent = string.Join(" ", result.Words);
                 Words = result.Words;
+                _currentIndex = 0;
+                CurrentWord = Words[0];
+                UpdateProgessString();
 
-                if (Words.Length > 0)
-                {
-                    _currentIndex = 0;
-                    CurrentWord = Words[_currentIndex];
-                }
+                RequestPopulateArticle?.Invoke(Words);
+                RequestHighlightWord?.Invoke(_currentIndex);
             }
         }
         catch(Exception ex)
         {
             ErrorMessage = "Error: " + ex.Message;
-            ArticleTitle = "Errir Loading Title";
+            CurrentWord = "No Article Found :/";
+            ArticleTitle = "Error Loading Title";
+            ArticleContent = "Failed to load content.";
         }
+    }
+    private void UpdateProgessString()
+    {
+        int total = Words?.Length ?? 0;
+
+        WordsOf = $"Words {_currentIndex+1}/{total}";
     }
 
     partial void OnWpmChanged(int value)
@@ -116,7 +152,7 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _timer ??= new DispatcherTimer(
                 TimeSpan.FromMilliseconds(300),
-                DispatcherPriority.Render,
+                DispatcherPriority.Normal,
                 (s, e) => NextWord()
             );
 
@@ -135,10 +171,15 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _currentIndex++;
             CurrentWord = Words[_currentIndex];
-        }
-        else
-        {
-            _timer?.Stop();
+            UpdateProgessString();
+
+
+            if (IsShowingFullArticle)
+            {
+                RequestHighlightWord?.Invoke(_currentIndex);
+            }
         }
     }
+
+
 }

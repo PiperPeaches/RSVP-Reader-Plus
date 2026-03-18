@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RSVP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90344900f8fa8a10f995e68ca2be5ee613c0b281")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a844480de1d4631fa139b38861983ca93741c9e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("RSVP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RSVP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
