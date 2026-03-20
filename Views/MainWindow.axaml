@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="RSVP.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/PhantReaderIcon.ico"
         Title="{Binding ArticleTitle}"
         MinWidth="1000"
         MinHeight="700">
@@ -15,65 +15,86 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Grid VerticalAlignment="Center">
-        <Grid RowDefinitions="Auto, Auto, *" Margin="20">
-            <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,20" HorizontalAlignment="Center">
-                <TextBox Grid.Column="0" Width="500" Text="{Binding Url}" Watermark="URL here..." CornerRadius="15" Padding="15,10"/>
-                <Button Grid.Column="1" Content="Load" Command="{Binding LoadArticleCommand}" Margin="20,0,0,0" Padding="15,10" CornerRadius="15" Background="#0cb36d"/>
-            </Grid>
-
-            <StackPanel Grid.Row="1" Spacing="10">
-                <Border Height="300" CornerRadius="12">
-                    <TextBlock Text="{Binding CurrentWord}" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-                
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="20" Margin="0,10">
-                    <TextBlock Text="{Binding WordsOf}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20" Margin="0,10">
-                        <Button Content="View Full Article" Command="{Binding OpenFullArticleCommand}" Padding="15,10" CornerRadius="15"/>
-                        <Button Content="Play / Pause" Command="{Binding TogglePlayCommand}" Padding="15,10" CornerRadius="15"/>
-                        <Button Content="Reset" Command="{Binding ResetRsvp}" Padding="15,10" CornerRadius="15" Background="#e64848"/>
-                        <Slider Value="{Binding Wpm}" Minimum="100" Maximum="1000" Width="200"/>
-                        <TextBlock Text="{Binding Wpm}" VerticalAlignment="Center"/>
-                        <Button Content="App Reset" Padding="15,10" CornerRadius="15" Background="#e64848" Command="{Binding FullResetCommand}"/>
-                    </StackPanel>
+    <TabControl Margin="10">
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="RSVP"/>
                 </StackPanel>
-            </StackPanel>
+            </TabItem.Header>
 
-            <Grid Grid.Row="3" IsVisible="{Binding IsShowingFullArticle}" RowDefinitions="Auto, *">
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
-                    <ListBox x:Name="ArticleListBox"
-                            Grid.Row="2" 
-                            ItemsSource="{Binding Words}" 
-                            SelectedIndex="{Binding CurrentIndex, Mode=TwoWay}"
-                            SelectionMode="Single"
-                            Background="Transparent">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Margin="20" />
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
+            <Grid VerticalAlignment="Center">
+                <Grid RowDefinitions="Auto, Auto, *" Margin="20">
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="0,0,0,20" HorizontalAlignment="Center">
+                        <TextBox Grid.Column="0" Width="500" Text="{Binding Url}" Watermark="URL here..." CornerRadius="15" Padding="15,10"/>
+                        <Button Grid.Column="1" Content="Load" Command="{Binding LoadArticleCommand}" Margin="20,0,0,0" Padding="15,10" CornerRadius="15" Background="#0cb36d"/>
+                    </Grid>
 
-                        <ListBox.Styles>
-                            <Style Selector="ListBoxItem">
-                                <Setter Property="Padding" Value="2,1"/>
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-                                <Setter Property="Background" Value="Gold"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Style>
-                        </ListBox.Styles>
+                    <StackPanel Grid.Row="1" Spacing="10">
+                        <Border Height="300" CornerRadius="12">
+                            <TextBlock Text="{Binding CurrentWord}" FontSize="72" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="20" Margin="0,10">
+                            <TextBlock Text="{Binding WordsOf}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20" Margin="0,10">
+                                <Button Content="View Full Article" Command="{Binding OpenFullArticleCommand}" Padding="15,10" CornerRadius="15"/>
+                                <Button Content="Play / Pause" Command="{Binding TogglePlayCommand}" Padding="15,10" CornerRadius="15"/>
+                                <Button Content="Reset" Command="{Binding ResetRsvp}" Padding="15,10" CornerRadius="15" Background="#e64848"/>
+                                <Slider Value="{Binding Wpm}" Minimum="100" Maximum="1000" Width="200"/>
+                                <TextBlock Text="{Binding Wpm}" VerticalAlignment="Center"/>
+                                <Button Content="App Reset" Padding="15,10" CornerRadius="15" Background="#e64848" Command="{Binding FullResetCommand}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
 
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" FontSize="18" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
+                    <Grid Grid.Row="3" IsVisible="{Binding IsShowingFullArticle}" RowDefinitions="Auto, *">
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,20">
+                            <ListBox x:Name="ArticleListBox"
+                                    Grid.Row="2" 
+                                    ItemsSource="{Binding Words}" 
+                                    SelectedIndex="{Binding CurrentIndex, Mode=TwoWay}"
+                                    SelectionMode="Single"
+                                    Background="Transparent">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Margin="20" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.Styles>
+                                    <Style Selector="ListBoxItem">
+                                        <Setter Property="Padding" Value="2,1"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                    </Style>
+                                    <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="Gold"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Style>
+                                </ListBox.Styles>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" FontSize="18" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
             </Grid>
-        </Grid>
-    </Grid>
+        </TabItem>
+
+        <TabItem>
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock Text="Bionic"/>
+                </StackPanel>
+            </TabItem.Header>
+            <Grid>
+                <TextBlock Text="Coming Soon" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

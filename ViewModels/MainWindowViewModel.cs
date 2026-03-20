@@ -13,6 +13,7 @@ using AngleSharp.Io;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
+    [ObservableProperty] public string _allen = "bald";
     public event Action<int>? RequestHighlightWord;
     public event Action<string[]>? RequestPopulateArticle;
     private DispatcherTimer? _timer;
@@ -23,7 +24,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public string _wordsOf = "Words " + 0 + "/" + 0;
 
     [ObservableProperty]
-    private string _articleTitle = "RSVP Reader Plus";
+    private string _articleTitle = "Phant Reader Plus";
     [ObservableProperty]
     private string _url = "";
     [ObservableProperty]
@@ -106,7 +107,7 @@ public partial class MainWindowViewModel : ViewModelBase
             
             if (result.Words != null && result.Words.Length > 0)
             {
-                ArticleTitle = "RSVP Reading | " + result.Title ?? "Unknown Title";
+                ArticleTitle = "Phant Reader |  RSVP | " + result.Title ?? "Unknown Title";
                 ArticleContent = string.Join(" ", result.Words);
                 Words = result.Words;
                 _currentIndex = 0;
@@ -172,7 +173,6 @@ public partial class MainWindowViewModel : ViewModelBase
             );
 
             _timer.Tick -= Timer_Tick;
-            _timer.Tick += Timer_Tick;
             _timer.Start();
         }
     }
