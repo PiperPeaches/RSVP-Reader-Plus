@@ -4,9 +4,9 @@
 ### -------------------------------------------------------------------------------------------------
 Phant reader is a simple RSVP made for students to improve speed when reading articles to get work done as fast as possible using 
 
-**![[image 20260323134233.png|387]]**
+**![[pasted image 20260323134233.png|387]]**
 
-![[image 20260323134349.png|387]]
+![[pasted image 20260323134349.png|387]]
 
 ## Installation instruction's
 
