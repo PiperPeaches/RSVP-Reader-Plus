@@ -2,12 +2,7 @@
 
 ![Made with Rust](https://img.shields.io/badge/made%20in-Rust-ce422b?style=flat&logo=rust&logoColor=white) ![Author|136](https://img.shields.io/badge/made%20by-Piper%20Peachs-F33A73?style=flat) ![Usage](https://img.shields.io/badge/designed%20for-Education-4a90e2?style=flat)![Development Time](https://img.shields.io/badge/time%20spent-11%20hours-success?style=flat)
 ### -------------------------------------------------------------------------------------------------
-Phant reader is a simple RSVP made for students to improve speed when reading articles to get work done as fast as possible using 
-
-![Image Preview](/preview1.png)
-
-![Image Preview](/preview2.png)
-
+Phant reader is a simple RSVP made for students to improve speed when reading articles to get work done as fast as possible using
 ## Installation instruction's
 
 ### Windows
